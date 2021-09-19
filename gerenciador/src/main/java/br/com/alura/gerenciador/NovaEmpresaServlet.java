@@ -2,14 +2,20 @@ package br.com.alura.gerenciador;
 
 import java.io.IOException;
 
-import java.io.PrintWriter;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 
 @WebServlet("/novaEmpresa")
@@ -22,8 +28,19 @@ public class NovaEmpresaServlet extends HttpServlet {
     	System.out.println("Cadastrando nova empresa");
     	
     	String nome_empresa = request.getParameter("nome");
+        String paramDataEmpresa = request.getParameter("data");
+    	Date dataAbertura = null;
+        
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            dataAbertura = sdf.parse(paramDataEmpresa);
+        } catch (ParseException e) {
+                throw new ServletException(e);
+        }
+        
     	Empresa empresa = new Empresa();
     	empresa.setNome(nome_empresa);
+        empresa.setDataAbertura(dataAbertura);
     	
     	Banco banco = new Banco();
     	banco.adiciona(empresa);
