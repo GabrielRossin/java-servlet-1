@@ -1,6 +1,7 @@
 package br.com.alura.gerenciador;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 
 import jakarta.servlet.ServletException;
@@ -18,8 +19,16 @@ public class NovaEmpresaServlet extends HttpServlet {
     	//O método doPost só é capaz de lidar com requisições do tipo post.
     	
     	System.out.println("Cadastrando nova empresa");
+    	
     	String nome_empresa = request.getParameter("nome");
+    	Empresa empresa = new Empresa();
+    	empresa.setNome(nome_empresa);
+    	
+    	Banco banco = new Banco();
+    	banco.adiciona(empresa);
+    	
         PrintWriter out = response.getWriter();
+        
         out.println("<html><body>Empresa "+ nome_empresa +" cadastrada com sucesso!</body></html>");
         
     }
