@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/oi")
 public class HelloWord extends HttpServlet 
 {
+	public HelloWord() 
+	{
+		
+		
+	}
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
